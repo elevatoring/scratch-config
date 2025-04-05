@@ -246,7 +246,7 @@
             &kp EQUAL  &kp N1     &kp N2     &kp N3     &mcopy         &msplits   &mpws      &kp UP     &mnws      &kp ESC
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│  0       │  4 $     │  5 %     │  6 ^     │ PASTE    │   │ F2       │ LEFT     │ DOWN     │ RIGHT    │ PAGE UP  │
-            &kp N0     &kp N4     &kp N5     &kp N6     &mpaste        &F2        &kp LEFT   &kp DOWN   &kp RIGHT  &kp PG_UP
+            &kp N0     &kp N4     &kp N5     &kp N6     &mpaste        &kp F2     &kp LEFT   &kp DOWN   &kp RIGHT  &kp PG_UP
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│ - _      │  7 &     │  8 *     │  9       │ / ?      │   │ WinCtrAlt│ SHIFT    │          │ DELETE   │ PAGE DN  │
             &kp MINUS  &kp N7     &kp N8     &kp N9     &kp FSLH       &mzones    &kp LSHFT  &trans     &kp DEL    &kp PG_DN
