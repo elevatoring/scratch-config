@@ -38,6 +38,12 @@
             bindings = <&mmv MOVE_LEFT>, <&msc SCRL_LEFT>;
             mods = <(MOD_LSFT)>;
         };
+        escw: espcape_window {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp ESC>, <&mescw>;
+            mods = <(MOD_LSFT)>;
+        };
     };
 
     combos {
@@ -100,27 +106,111 @@
             timeout-ms = <50>;
             key-positions = <5 6>;
             bindings = <&kp LSHFT>;
-            layers = <1>;
+            layers = <1 2>;
         };
         combo_la {
             timeout-ms = <50>;
             key-positions = <6 7>;
             bindings = <&kp LALT>;
-            layers = <1>;
+            layers = <1 2>;
         };
         combo_lc {
             timeout-ms = <50>;
             key-positions = <7 8>;
             bindings = <&kp LCTRL>;
-            layers = <1>;
+            layers = <1 2>;
         };
         combo_lg {
             timeout-ms = <50>;
             key-positions = <12 13>;
             bindings = <&kp LGUI>;
-            layers = <1>;
+            layers = <1 2>;
         };
     }; 
+
+    macros {
+        mcut: mcut {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LCTRL>
+                , <&macro_tap &kp X>
+                , <&macro_release &kp LCTRL>
+                ;
+        };
+        mcopy: mcopy {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LCTRL>
+                , <&macro_tap &kp C>
+                , <&macro_release &kp LCTRL>
+                ;
+        };
+        mpaste: mpaste {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LCTRL>
+                , <&macro_tap &kp V>
+                , <&macro_release &kp LCTRL>
+                ;
+        };
+        mpnf: mpnf {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LCTRL &kp LSHFT>
+                , <&macro_tap &kp V>
+                , <&macro_release &kp LCTRL &kp LSHFT>
+                ;
+        };
+        msplits: msplits {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LSHFT>
+                , <&macro_tap &kp Z &kp M &kp K>
+                , <&macro_release &kp LSHFT>
+                ;
+        };
+        mzones: mzones {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LGUI &kp LCTRL &kp LALT>
+                , <&macro_pause_for_release>
+                , <&macro_release &kp LGUI &kp LCTRL &kp LALT>
+                ;
+        };
+        mpws: mpws {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LCTRL>
+                , <&macro_tap &kp PG_UP>
+                , <&macro_release &kp LCTRL>
+                ;
+        };
+        mnws: mnws {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LCTRL>
+                , <&macro_tap &kp PG_DN>
+                , <&macro_release &kp LCTRL>
+                ;
+        };
+        mescw: mescw {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LALT>
+                , <&macro_tap &kp F4>
+                , <&macro_release &kp LALT>
+                ;
+        };
+    };
 
     conditional_layers {
         compatible = "zmk,conditional-layers";
@@ -153,13 +243,13 @@
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
         //│ = +      │  1 !     │  2 @     │  3 #     │ COPY     │   │ SPLIT SCR│ PREV WS  │ UP       │ NEXT WS  │ ESCAPE   │
-            &kp EQUAL  &kp N1     &kp N2     &kp N3     *******        *******    *******    &kp UP     *******    &kp ESC
+            &kp EQUAL  &kp N1     &kp N2     &kp N3     &mcopy         &msplits   &mpws      &kp UP     &mnws      &kp ESC
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│  0 (     │  4 $     │  5 %     │  6 ^     │ PASTE    │   │ F2       │ LEFT     │ DOWN     │ RIGHT    │ PAGE UP  │
-            &kp N0     &kp N4     &kp N5     &kp N6     *******        *******    &kp LEFT   &kp DOWN   &kp RIGHT  &kp PG_UP
+            &kp N0     &kp N4     &kp N5     &kp N6     &mpaste        &F2        &kp LEFT   &kp DOWN   &kp RIGHT  &kp PG_UP
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│ - _      │  7 &     │  8 *     │  9 )     │ / ?      │   │ WinCtrAlt│ SHIFT    │          │ DELETE   │ PAGE DN  │
-            &kp MINUS  &kp N7     &kp N8     &kp N9     &kp FSLH       *******    &kp LSHFT  &trans     &kp DEL    &kp PG_DN
+            &kp MINUS  &kp N7     &kp N8     &kp N9     &kp FSLH       &mzones    &kp LSHFT  &trans     &kp DEL    &kp PG_DN
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                              &trans     &trans         &trans     &trans
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
@@ -169,14 +259,14 @@
         mouse_layer {
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│ ALT      │ CONTROL  │          │ CUT      │ COPY     │   │          │          │ UP       │          │ ESCAPE   │
-            &kp LALT   &kp LCTRL  &none      *******    *******        &none       &none     &moun      &none      &kp ESC
+        //│          │ VOL UP   │ BRIGHT UP│ CUT      │ COPY     │   │          │ PREV WS  │ UP       │ NEXT WS  │ ESCAPE   │
+            &none   &kp C_VOL_UP &kp C_BRI_UP &mcut     &mcopy         &none      &mpws      &moun      &mnws      &kp ESC
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│ SHIFT    │ Right B  │ Left B   │ CLN PASTE│ PASTE    │   │ PRNT SCR │ LEFT     │ DOWN     │ RIGHT    │          │
-            &kp LSHFT  &mkp MB2   &mkp MB1   *******    *******        &kp PSCRN  &mouw      &mous      &moue      &none
+        //│          │ Right B  │ Left B   │ CLN PASTE│ PASTE    │   │ PRNT SCR │ LEFT     │ DOWN     │ RIGHT    │ PAGE UP  │
+            &none      &mkp MB2   &mkp MB1   &mpnf      &mpaste        &kp PSCRN  &mouw      &mous      &moue      &kp PG_UP
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│ GUI      │ VOL DN   │ VOL UP   │ BRIGHT DN│ BRIGHT UP│   │          │          │ CTRL D   │ DELETE   │          │
-        &kp LGUI &kp C_VOL_DN &kp C_VOL_UP &kp C_BRI_DN &kp C_BRI_UP   &none      &none      *******    &kp DEL    &none
+        //│          │ VOL DOWN │ BRIGHT DN│          │          │   │          │          │          │ DELETE   │ PAGE DN  │
+            &none   &kp C_VOL_DN &kp C_BRI_DN &none     &none          &none      &none      &none      &kp DEL    &kp PG_DN
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                              &trans     &trans         &trans     &trans
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
