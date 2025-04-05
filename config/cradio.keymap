@@ -13,39 +13,6 @@
 
 
 / {
-    behaviors {
-        moun: mouse_north {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&mmv MOVE_UP>, <&msc SCRL_UP>;
-            mods = <(MOD_LSFT)>;
-        };
-        mous: mouse_south {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&mmv MOVE_DOWN>, <&msc SCRL_DOWN>;
-            mods = <(MOD_LSFT)>;
-        };
-        moue: mouse_east {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&mmv MOVE_RIGHT>, <&msc SCRL_RIGHT>;
-            mods = <(MOD_LSFT)>;
-        };
-        mouw: mouse_west {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&mmv MOVE_LEFT>, <&msc SCRL_LEFT>;
-            mods = <(MOD_LSFT)>;
-        };
-        escw: espcape_window {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp ESC>, <&mescw>;
-            mods = <(MOD_LSFT)>;
-        };
-    };
-
     combos {
         compatible = "zmk,combos";
         combo_lss {
@@ -209,6 +176,39 @@
                 , <&macro_tap &kp F4>
                 , <&macro_release &kp LALT>
                 ;
+        };
+    };
+
+    behaviors {
+        moun: mouse_north {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&mmv MOVE_UP>, <&msc SCRL_UP>;
+            mods = <(MOD_LSFT)>;
+        };
+        mous: mouse_south {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&mmv MOVE_DOWN>, <&msc SCRL_DOWN>;
+            mods = <(MOD_LSFT)>;
+        };
+        moue: mouse_east {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&mmv MOVE_RIGHT>, <&msc SCRL_RIGHT>;
+            mods = <(MOD_LSFT)>;
+        };
+        mouw: mouse_west {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&mmv MOVE_LEFT>, <&msc SCRL_LEFT>;
+            mods = <(MOD_LSFT)>;
+        };
+        escw: espcape_window {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp ESC>, <&mescw>;
+            mods = <(MOD_LSFT)>;
         };
     };
 
