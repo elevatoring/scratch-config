@@ -3,7 +3,7 @@
 
 #include <dt-bindings/zmk/reset.h>
 
-#define ZMK_POINTING_DEFAULT_MOVE_VAL 600  // default: 600
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 900  // default: 600
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 10   // default: 10
 
 #include <behaviors.dtsi>
@@ -105,6 +105,13 @@
             bindings = <&kp LGUI>;
             layers = <1 2>;
         };
+
+        combo_short {
+            timeout-ms = <50>;
+            key-positions = <31 32>;
+            bindings = <&kp LGUI &kp RGUI &kp LCTRL &kp RCTRL &kp LALT &kp RALT &kp LSHFT &kp RSHFT>;
+            layers = <0>;
+        };
     };
 
     macros {
@@ -156,16 +163,16 @@
                 <&kp LCTRL &kp LSHFT>;
         };
 
-        msplits: msplits {
+        mclip: mclip {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings =
                 <&macro_press>,
-                <&kp LSHFT>,
+                <&kp LGUI>,
                 <&macro_tap>,
-                <&kp Z &kp M &kp K>,
+                <&kp V>,
                 <&macro_release>,
-                <&kp LSHFT>;
+                <&kp LGUI>;
         };
 
         mzones: mzones {
@@ -203,6 +210,30 @@
                 <&kp LCTRL>;
         };
 
+        mpad: mpad {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+                <&macro_press>,
+                <&kp LCTRL &kp LSHFT>,
+                <&macro_tap>,
+                <&kp TAB>,
+                <&macro_release>,
+                <&kp LCTRL &kp LSHFT>;
+        };
+
+        mnad: mnad {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+                <&macro_press>,
+                <&kp LCTRL>,
+                <&macro_tap>,
+                <&kp TAB>,
+                <&macro_release>,
+                <&kp LCTRL>;
+        };
+
         mescw: mescw {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -214,7 +245,22 @@
                 <&macro_release>,
                 <&kp LALT>;
         };
+
+        mteam: mteam {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+                <&macro_press>,
+                <&kp LCTRL &kp LSHFT>,
+                <&macro_tap>,
+                <&kp M>,
+                <&macro_release>,
+                <&kp LCTRL &kp LSHFT>;
+        };
+
     };
+
+
 
     behaviors {
         moun: mouse_north {
@@ -281,7 +327,7 @@
 
         nav_layer {
             bindings = <
-&kp EQUAL  &kp N1  &kp N2  &kp N3  &mcopy      &msplits  &mpws      &kp UP    &mnws      &kp ESC
+&kp EQUAL  &kp N1  &kp N2  &kp N3  &mcopy      &none     &mpws      &kp UP    &mnws      &kp ESC
 &kp N0     &kp N4  &kp N5  &kp N6  &mpaste     &kp F2    &kp LEFT   &kp DOWN  &kp RIGHT  &kp PG_UP
 &kp MINUS  &kp N7  &kp N8  &kp N9  &kp FSLH    &mzones   &kp LSHFT  &trans    &kp DEL    &kp PG_DN
                            &trans  &trans      &trans    &trans
@@ -290,19 +336,19 @@
 
         mouse_layer {
             bindings = <
-&none  &kp C_VOL_UP  &kp C_BRI_UP  &mcut   &mcopy     &none      &mpws   &moun  &mnws    &kp ESC
+&mteam &kp C_VOL_UP  &kp C_BRI_UP  &mcut   &mcopy     &none      &mpad   &moun  &mnad    &kp ESC
 &none  &mkp MB2      &mkp MB1      &mpnf   &mpaste    &kp PSCRN  &mouw   &mous  &moue    &kp PG_UP
-&none  &kp C_VOL_DN  &kp C_BRI_DN  &none   &none      &none      &none   &none  &kp DEL  &kp PG_DN
+&none  &kp C_VOL_DN  &kp C_BRI_DN  &mclip  &none      &none      &none   &none  &kp DEL  &kp PG_DN
                                    &trans  &trans     &trans     &trans
             >;
         };
 
         util_layer {
             bindings = <
-&sys_reset   &none  &none  &none       &bt BT_SEL 0    &studio_unlock  &none   &none  &none  &sys_reset
-&bootloader  &none  &none  &none       &bt BT_SEL 1    &none           &none   &none  &none  &bootloader
-&none        &none  &none  &bt BT_CLR  &bt BT_SEL 2    &none           &none   &none  &none  &none
-                           &trans      &trans          &trans          &trans
+&none  &none  &none  &none       &bt BT_SEL 0    &studio_unlock  &none   &none  &none  &none
+&none  &none  &none  &none       &bt BT_SEL 1    &none           &none   &none  &none  &none
+&none  &none  &none  &bt BT_CLR  &bt BT_SEL 2    &none           &none   &none  &none  &none
+              &trans &trans      &trans          &trans
             >;
         };
     };
